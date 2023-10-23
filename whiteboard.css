@@ -1,0 +1,26 @@
+.border {
+    border: 1px solid black;
+    border-radius: 20px;
+    width: 100%;
+}
+
+canvas {
+    height: 725px;
+}
+
+#container {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    justify-content: center; /* Horizontal centering */
+    border: 1px solid black;
+    border-radius: 20px;
+    text-align: center;
+}
+
+#container > p, button, img {
+    margin-left: 50px;
+    margin-right: 50px;
+    height: 40px;
+    margin-top: 5px;
+}

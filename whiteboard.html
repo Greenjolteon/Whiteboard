@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Canvas experiment</title>
+    <link rel="stylesheet" href="whiteboard.css">
+  </head>
+  <body>
+    <canvas id="canvas" class="border" width="1500" height="725"></canvas>
+    <br>
+    <div id="container">
+        <button type="button" onclick="clearCanvas()">Clear</button>
+        <img src="pen.webp">
+        <img src="eraser.webp">
+    </div>
+    <script type="application/javascript">
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      function draw() {
+        if (canvas.getContext) {
+          /*
+          fillRect(x, y, width, height) for a filled rectangle
+          strokeRect(x, y, width, height) for a rectangle outline
+          clearRect(x, y, width, height) to clear the rectangle area
+          beginPath() creates a new path. Once created, future drawing commands are directed into the path and used to build the path up
+          closePath() adds a straight line to the path, going to the start of the current sub-path
+          stroke() draws the shape by stroking its outline
+          fill() draws a solid shape by filling the path's content area
+          moveTo(x, y) to move the pen to a position without it drawing
+          lineTo(x, y) to draw a line from the pen's position
+          arc(x, y, radius, startAngle, endAngle, counterclockwise) to draw a circle (angles are in radians and counterclockwise is a boolean)
+          arcTo(x1, y1, x2, y2, radius) to draw an arc with the given control points and radius, connected to the previous point by a straight line
+          */
+
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 2;
+
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+
+            canvas.addEventListener("mousedown", (e) => {
+                isDrawing = true;
+                [lastX, lastY] = [e.x - canvas.offsetLeft, e.y - canvas.offsetTop];
+            });
+
+            canvas.addEventListener("mousemove", draw);
+
+            canvas.addEventListener("mouseup", () => isDrawing = false);
+            canvas.addEventListener("mouseout", () => isDrawing = false);
+
+            function draw(e) {
+                if (!isDrawing) return;
+
+                const [x, y] = [e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop];
+
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+
+                [lastX, lastY] = [x, y];
+            }
+        }
+      }
+
+      function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      draw();
+    </script>
+  </body>
+</html>
