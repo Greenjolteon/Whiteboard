@@ -1,3 +1,3 @@
 # Whiteboard
-Whiteboard. That is all
+Whiteboard. That is all.
 I didnt make the photos
